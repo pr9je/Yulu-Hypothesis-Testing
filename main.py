@@ -62,3 +62,7 @@ df.dtypes
 # Missing value detection
 df.isnull().sum()
 
+# Duplicate records
+print("Number of duplicates rows: ", df.duplicated().sum())
+df = df.drop_duplicates()
+print('Shape after dropping duplicates: ', df.shape)
