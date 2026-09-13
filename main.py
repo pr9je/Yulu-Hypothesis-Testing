@@ -58,3 +58,7 @@ numerical_cols = ['temp', 'atemp', 'humidity', 'windspeed', 'casual', 'registere
 print('Categorical Columns:', categorical_cols)
 print('Numerical Columns:', numerical_cols)
 df.dtypes
+
+# Missing value detection
+df.isnull().sum()
+
