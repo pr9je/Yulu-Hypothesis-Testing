@@ -66,3 +66,8 @@ df.isnull().sum()
 print("Number of duplicates rows: ", df.duplicated().sum())
 df = df.drop_duplicates()
 print('Shape after dropping duplicates: ', df.shape)
+
+# Statistical Summary
+df['numerical_cols'].describe().T
+
+df[categorical_cols].describe()
