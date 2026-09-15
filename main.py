@@ -71,3 +71,15 @@ print('Shape after dropping duplicates: ', df.shape)
 df['numerical_cols'].describe().T
 
 df[categorical_cols].describe()
+
+# Univariate Analysis
+# Distribution of Continoue Variables
+fig, axes = plt.subplots(3,3, figsize=(16,12))
+axes = axes.flatten()
+for i, col in enumerate(numerical_cols):
+  sns.histplot(df[col], kde=True, ax=axes[i], color='steelblue')
+  axes[i].set_title(f'Distribution of {col}')
+for j in range(len(numerical_cols), len(axes)):
+  fig.delaxes(axes[j])
+plt.tight_layout()
+plt.show()
