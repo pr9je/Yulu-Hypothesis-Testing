@@ -83,3 +83,14 @@ for j in range(len(numerical_cols), len(axes)):
   fig.delaxes(axes[j])
 plt.tight_layout()
 plt.show()
+
+# Outlier Check (Boxplots + IQR)
+fig, axes = plt.subplots(2, 4, figsize=(18, 8))
+axes = axes.flatten()
+for i, col in enumerate(numerical_cols):
+  sns.boxplot(y=df[col], ax=axes[i], color='lightcoral')
+  axes[i].set_title(f'Boxplot: {col}')
+for j in range(len(numerical_cols), len(axes)):
+  fig.delaxes(axes[j])
+plt.tight_layout()
+plt.show()
