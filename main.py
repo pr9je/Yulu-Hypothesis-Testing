@@ -94,3 +94,18 @@ for j in range(len(numerical_cols), len(axes)):
   fig.delaxes(axes[j])
 plt.tight_layout()
 plt.show()
+
+def get_outliers_bounds(series):
+  Q1 = series.quantile(0.25)
+  Q3 = series.quantile(0.75)
+  IQR = Q3 - Q1
+  lower_bound = Q1 - 1.5 * IQR
+  upper_bound = Q3 + 1.5 * IQR
+  return lower_bound, upper_bound
+
+print(f"{'Column':<12}{'Lower':>10}{'Upper':>10}{'#Ouliters':>14}{'% of data':>12}")
+for col in numerical_cols:
+  lower, upper = get_outliers_bounds(df[col])
+  n_outliers = df[(df[col] < lower) | (df[col] > upper)].shape[0]
+  pct = 100 * n_outliers / df.shape[0]
+  print(f"{col:<12}{lower:>10.2f}{upper:>10.2f}{n_outliers:>14}{pct:>12.2f}")
