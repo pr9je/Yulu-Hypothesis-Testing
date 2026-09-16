@@ -109,3 +109,9 @@ for col in numerical_cols:
   n_outliers = df[(df[col] < lower) | (df[col] > upper)].shape[0]
   pct = 100 * n_outliers / df.shape[0]
   print(f"{col:<12}{lower:>10.2f}{upper:>10.2f}{n_outliers:>14}{pct:>12.2f}")
+
+# Outlier treatment: Clip only windspeed (likely-erroneous extreme readings)
+# count/ casual / registered outliers are retained since they represent real demans spikes, not data errors, and removing them would bias the hypothesis tests that follow.
+lower_ws, upper_ws = get_outliers_bounds(df['windspeed'])
+df['windspeed'] = df['windspeed'].clip(lower=lower_ws, upper=upper_ws)
+print(f"Windspeed clipped to [{lower_ws:.2f},{upper_ws:.2f}]")
