@@ -71,3 +71,47 @@ print('Shape after dropping duplicates: ', df.shape)
 df['numerical_cols'].describe().T
 
 df[categorical_cols].describe()
+
+# Univariate Analysis
+# Distribution of Continoue Variables
+fig, axes = plt.subplots(3,3, figsize=(16,12))
+axes = axes.flatten()
+for i, col in enumerate(numerical_cols):
+  sns.histplot(df[col], kde=True, ax=axes[i], color='steelblue')
+  axes[i].set_title(f'Distribution of {col}')
+for j in range(len(numerical_cols), len(axes)):
+  fig.delaxes(axes[j])
+plt.tight_layout()
+plt.show()
+
+# Outlier Check (Boxplots + IQR)
+fig, axes = plt.subplots(2, 4, figsize=(18, 8))
+axes = axes.flatten()
+for i, col in enumerate(numerical_cols):
+  sns.boxplot(y=df[col], ax=axes[i], color='lightcoral')
+  axes[i].set_title(f'Boxplot: {col}')
+for j in range(len(numerical_cols), len(axes)):
+  fig.delaxes(axes[j])
+plt.tight_layout()
+plt.show()
+
+def get_outliers_bounds(series):
+  Q1 = series.quantile(0.25)
+  Q3 = series.quantile(0.75)
+  IQR = Q3 - Q1
+  lower_bound = Q1 - 1.5 * IQR
+  upper_bound = Q3 + 1.5 * IQR
+  return lower_bound, upper_bound
+
+print(f"{'Column':<12}{'Lower':>10}{'Upper':>10}{'#Ouliters':>14}{'% of data':>12}")
+for col in numerical_cols:
+  lower, upper = get_outliers_bounds(df[col])
+  n_outliers = df[(df[col] < lower) | (df[col] > upper)].shape[0]
+  pct = 100 * n_outliers / df.shape[0]
+  print(f"{col:<12}{lower:>10.2f}{upper:>10.2f}{n_outliers:>14}{pct:>12.2f}")
+
+# Outlier treatment: Clip only windspeed (likely-erroneous extreme readings)
+# count/ casual / registered outliers are retained since they represent real demans spikes, not data errors, and removing them would bias the hypothesis tests that follow.
+lower_ws, upper_ws = get_outliers_bounds(df['windspeed'])
+df['windspeed'] = df['windspeed'].clip(lower=lower_ws, upper=upper_ws)
+print(f"Windspeed clipped to [{lower_ws:.2f},{upper_ws:.2f}]")
