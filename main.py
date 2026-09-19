@@ -3,6 +3,7 @@
 import numpy as np
 import pandas as pd
 
+
 # Visualization
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -115,3 +116,33 @@ for col in numerical_cols:
 lower_ws, upper_ws = get_outliers_bounds(df['windspeed'])
 df['windspeed'] = df['windspeed'].clip(lower=lower_ws, upper=upper_ws)
 print(f"Windspeed clipped to [{lower_ws:.2f},{upper_ws:.2f}]")
+
+# Distribution of Categorical Variables
+fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+axes = axes.flatten()
+
+sns.countplot(x='season_label', data=df, ax=axes[0], palette='viridis', order=['spring','summer','fall','winter'])
+axes[0].set_title('Season Distribution')
+
+sns.countplot(x='holiday', data=df, ax=axes[1], palette='viridis')
+axes[1].set_title('Holiday Distribution (0 = No, 1 = Yes)')
+
+sns.countplot(x='workingday', data=df, ax=axes[2], palette='viridis')
+axes[2].set_title('Working Day Distribution (0 = No, 1 = Yes)')
+
+sns.countplot(x='weather_label', data=df, ax=axes[3], palette='viridis')
+axes[3].set_title('Weather Distribution')
+axes[3].tick_params(axis='x', rotation=20)
+
+plt.tight_layout()
+plt.show()
+
+# Bivariate Analysis
+# Working Day vs Count
+plt.figure(figsize=(7,5))
+sns.boxplot(x='workingday', y='count', data=df, palette='Set2')
+plt.xticks([0,1], ['Non-Working Day', 'Working Day'])
+plt.title('Bike Rental Count: Working Day vs Non-Working Day')
+plt.show()
+
+df.groupby('workingday')['count'].agg(['mean','median','std','count'])
