@@ -136,3 +136,11 @@ axes[3].tick_params(axis='x', rotation=20)
 
 plt.tight_layout()
 plt.show()
+
+plt.figure(figsize=(7,5))
+sns.boxplot(x='workingday', y='count', data=df, palette='Set2')
+plt.xticks([0,1], ['Non-Working Day', 'Working Day'])
+plt.title('Bike Rental Count: Working Day vs Non-Working Day')
+plt.show()
+
+df.groupby('workingday')['count'].agg(['mean','median','std','count'])
