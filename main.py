@@ -146,3 +146,11 @@ plt.title('Bike Rental Count: Working Day vs Non-Working Day')
 plt.show()
 
 df.groupby('workingday')['count'].agg(['mean','median','std','count'])
+
+# Season vs Count
+plt.figure(figsize=(8, 5))
+sns.boxplot(x='season_label', y='count', data=df, order=['spring','summer','fall','winter'], palette='Set2')
+plt.title('Bike Rental Count by Season')
+plt.show()
+
+df.groupby('season_label')['count'].mean().reindex(['spring','summer','fall','winter'])
