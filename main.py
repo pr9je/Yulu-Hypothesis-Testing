@@ -154,3 +154,19 @@ plt.title('Bike Rental Count by Season')
 plt.show()
 
 df.groupby('season_label')['count'].mean().reindex(['spring','summer','fall','winter'])
+
+# Weather vs Count
+plt.figure(figsize=(8, 5))
+sns.boxplot(x='weather_label', y='count', data=df,palette='Set2')
+plt.title('Bike Rental Count by Weather')
+plt.show()
+
+df.groupby('weather_label')['count'].mean().round(2)
+
+# Correlation Heatmap (Numerical Variables)
+corr_cols = ['temp', 'atemp', 'humidity', 'windspeed','casual', 'registered', 'count']
+plt.figure(figsize=(9,7))
+sns.heatmap(df[corr_cols].corr(), annot=True, fmt='.2f', cmap='coolwarm', square=True)
+plt.title('Correlation Heatmap')
+plt.show()
+
