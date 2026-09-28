@@ -198,3 +198,7 @@ for name, sample in [('Working day', working_day_counts), ('Non-working day', no
   test_sample = sample.sample(min(len(sample), 500), random_state=42)
   stat, p = shapiro(test_sample)
   print(f'{name}: Shapiro-Wilk stat={stat:.4f}, p-value={p:.4g}')
+
+# Assumptions 2: Eqality of variance (Levene's Test)
+lev_stat, lev_p = levene(working_day_counts, non_working_day_counts)
+print(f'Levene stat: {lev_stat:.4f}, p-value: {lev_p:.4g}')
