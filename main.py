@@ -193,3 +193,8 @@ stats.probplot(non_working_day_counts, dist='norm', plot=axes[1])
 axes[1].set_title('Q-Q Plot: Non-Working Day')
 plt.tight_layout()
 plt.show()
+
+for name, sample in [('Working day', working_day_counts), ('Non-working day', non_working_day_counts)]:
+  test_sample = sample.sample(min(len(sample), 500), random_state=42)
+  stat, p = shapiro(test_sample)
+  print(f'{name}: Shapiro-Wilk stat={stat:.4f}, p-value={p:.4g}')
