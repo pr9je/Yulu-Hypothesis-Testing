@@ -183,3 +183,13 @@ non_working_day_count = df[df['workingday'] == 0]['count']
 
 print('Working day      -mean:',round(working_day_counts.mean(), 2), '| std:', round(working_day_counts.std(),2), '| n =', len(working_day_counts))
 print('Non-working day  -mean:',round(non_working_day_counts.mean(), 2), '| std:', round(non_working_day_counts.std(),2), '| n =', len(non_working_day_counts))
+
+# Checking test Assumptions:
+# Assumptions 1: Normality (shapiro-wilk on a sample, since n is large; visual check via Q-Q plots)
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+stats.probplot(working_day_counts, dist='norm', plot=axes[0])
+axes[0].set_title('Q-Q Plot: Working Day')
+stats.probplot(non_working_day_counts, dist='norm', plot=axes[1])
+axes[1].set_title('Q-Q Plot: Non-Working Day')
+plt.tight_layout()
+plt.show()
