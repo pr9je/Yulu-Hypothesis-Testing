@@ -207,3 +207,9 @@ print(f'Levene stat: {lev_stat:.4f}, p-value: {lev_p:.4g}')
 t_stat, p_value = ttest_ind(working_day_counts, non_working_day_counts, equal_var=False)
 print(f'T-statistic: {t_stat:.4f}')
 print(f'P-value: {p_value:.4f}')
+
+alpha = 0.05
+if p_value <= alpha:
+  print('Conculusion: Reject H0 - Working day DOES have a significant effect on the number of cycles rented')
+else:
+  print('Conclusion: Fail to reject H0 - Working day DOES NOT have a signigicant effect on the number of cycles rented.')
