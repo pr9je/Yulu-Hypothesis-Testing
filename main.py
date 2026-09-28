@@ -170,3 +170,14 @@ sns.heatmap(df[corr_cols].corr(), annot=True, fmt='.2f', cmap='coolwarm', square
 plt.title('Correlation Heatmap')
 plt.show()
 
+# Hypothesis Testing
+# All test below use a significance level of alpha = 0.05
+
+## Does Working day have an effect on the number of eletric cycles rented? 
+# H0 = mean (working day) = mean (non-workgind day)
+# H1 = mean (working day) != mean (non-working day)
+# alpha = 0.05
+
+working_day_count = df[df['workingday'] == 1]['count']
+non_working_day_count = df[df['workingday'] == 0]['count']
+
