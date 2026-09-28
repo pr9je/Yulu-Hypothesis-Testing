@@ -181,3 +181,5 @@ plt.show()
 working_day_count = df[df['workingday'] == 1]['count']
 non_working_day_count = df[df['workingday'] == 0]['count']
 
+print('Working day      -mean:',round(working_day_counts.mean(), 2), '| std:', round(working_day_counts.std(),2), '| n =', len(working_day_counts))
+print('Non-working day  -mean:',round(non_working_day_counts.mean(), 2), '| std:', round(non_working_day_counts.std(),2), '| n =', len(non_working_day_counts))
