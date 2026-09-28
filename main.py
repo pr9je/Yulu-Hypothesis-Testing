@@ -202,3 +202,8 @@ for name, sample in [('Working day', working_day_counts), ('Non-working day', no
 # Assumptions 2: Eqality of variance (Levene's Test)
 lev_stat, lev_p = levene(working_day_counts, non_working_day_counts)
 print(f'Levene stat: {lev_stat:.4f}, p-value: {lev_p:.4g}')
+
+# calculating the test stattics and p-value:
+t_stat, p_value = ttest_ind(working_day_counts, non_working_day_counts, equal_var=False)
+print(f'T-statistic: {t_stat:.4f}')
+print(f'P-value: {p_value:.4f}')
