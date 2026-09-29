@@ -213,3 +213,10 @@ if p_value <= alpha:
   print('Conculusion: Reject H0 - Working day DOES have a significant effect on the number of cycles rented')
 else:
   print('Conclusion: Fail to reject H0 - Working day DOES NOT have a signigicant effect on the number of cycles rented.')
+
+## Is the number of cycles rented similar or different in different weather conditions?
+season_groups = [df[df['season'] == s]['count'].values for s in sorted(df['season'].cat.categories)]
+
+for s in sorted(df['season'].cat.categories):
+    grp = df[df['season'] == s]['count']
+    print(f'Season {s} ({season_map[s]}): n={len(grp)}, mean={grp.mean():.2f}, std={grp.std():.2f}')
