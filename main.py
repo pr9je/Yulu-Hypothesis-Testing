@@ -236,3 +236,7 @@ for w in sorted(df['weather'].cat.categories):
   test_sample = sample.sample(min(len(sample), 500), random_state=42)
   stat, p = shapiro(test_sample)
   print(f'Weather {w}: Shapiro-Wilk stat={stat:.4f}, p-value={p:.4g}')
+
+# Assumption 2: Equality of variance across groups (Levene's test)
+lev_stat, lev_p = levene(*weather_groups)
+print(f'Levene stat: {lev_stat:.4f}, p-value: {lev_p:.4g}')
