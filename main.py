@@ -215,28 +215,8 @@ else:
   print('Conclusion: Fail to reject H0 - Working day DOES NOT have a signigicant effect on the number of cycles rented.')
 
 ## Is the number of cycles rented similar or different in different weather conditions?
-season_groups = [df[df['season'] == s]['count'].values for s in sorted(df['season'].cat.categories)]
+weather_groups = [df[df['weather'] == w]['count'].values for w in sorted(df['weather'].cat.categories)]
 
-for s in sorted(df['season'].cat.categories):
-    grp = df[df['season'] == s]['count']
-    print(f'Season {s} ({season_map[s]}): n={len(grp)}, mean={grp.mean():.2f}, std={grp.std():.2f}')
-
-# Assumption 1: Normality within each group (Q-Q plots + Shapiro-Wilk)
-fig, axes = plt.subplots(1, 4, figsize=(18, 4))
-for i, s in enumerate(sorted(df['season'].cat.categories)):
-    stats.probplot(df[df['season'] == s]['count'], dist='norm', plot=axes[i])
-    axes[i].set_title(f'Q-Q Plot: {season_map[s]}')
-plt.tight_layout()
-plt.show()
-
-for s in sorted(df['season'].cat.categories):
-    sample = df[df['season'] == s]['count']
-    test_sample = sample.sample(min(len(sample), 500), random_state=42)
-    stat, p = shapiro(test_sample)
-    print(f'{season_map[s]}: Shapiro-Wilk stat={stat:.4f}, p-value={p:.4g}')
-
-# Assumption 2: Equality of variance across groups (Levene's test)
-lev_stat, lev_p = levene(*season_groups)
-print(f'Levene stat: {lev_stat:.4f}, p-value: {lev_p:.4g}')
-
-
+for w in sorted(df['weather'].cat.categories):
+    grp = df[df['weather'] == w]['count']
+    print(f'Weather {w} ({weather_map[w]}): n={len(grp)}, mean={grp.mean():.2f}, std={grp.std():.2f}')
