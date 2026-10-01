@@ -245,3 +245,7 @@ print(f'Levene stat: {lev_stat:.4f}, p-value: {lev_p:.4g}')
 f_stat, p_value = f_oneway(*weather_groups)
 print(f'ANOVA F-statistic: {f_stat:.4f}')
 print(f'P-value: {p_value:.4g}')
+
+kw_stats, kw_p = kruskal(*weather_groups)
+print(f'Kruskal-Wallis stat: {kw_stats:.4f}')
+print(f'P-value: {kw_p:.4g}')
