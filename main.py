@@ -220,3 +220,19 @@ weather_groups = [df[df['weather'] == w]['count'].values for w in sorted(df['wea
 for w in sorted(df['weather'].cat.categories):
     grp = df[df['weather'] == w]['count']
     print(f'Weather {w} ({weather_map[w]}): n={len(grp)}, mean={grp.mean():.2f}, std={grp.std():.2f}')
+
+# Assumption 1: Normality within each group (Q-Q plots + Shapiro -Wilk)
+
+fig, axes = plt.subplots(1, 4, figsize=(18,4))
+for i, w in enumerate(sorted(df['weather'].cat.categories)):
+  stats.probplot(df[df['weather'] == w]['count'], dist='norm', plot=axes[i])
+  axes[i].set_title(f'Q-Q Plot: Weather {w}')
+plt.tight_layout()
+plt.show()
+
+print()
+for w in sorted(df['weather'].cat.categories):
+  sample = df[df['weather'] == w]['count']
+  test_sample = sample.sample(min(len(sample), 500), random_state=42)
+  stat, p = shapiro(test_sample)
+  print(f'Weather {w}: Shapiro-Wilk stat={stat:.4f}, p-value={p:.4g}')
