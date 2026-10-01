@@ -240,3 +240,8 @@ for w in sorted(df['weather'].cat.categories):
 # Assumption 2: Equality of variance across groups (Levene's test)
 lev_stat, lev_p = levene(*weather_groups)
 print(f'Levene stat: {lev_stat:.4f}, p-value: {lev_p:.4g}')
+
+# Calculating the test statistic and p-value
+f_stat, p_value = f_oneway(*weather_groups)
+print(f'ANOVA F-statistic: {f_stat:.4f}')
+print(f'P-value: {p_value:.4g}')
