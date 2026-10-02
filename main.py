@@ -290,3 +290,9 @@ print(f'P-value: {p_value:.4g}')
 kw_stat, kw_p = kruskal(*seasons_groups)
 print(f'Kruskal-Wallis stat: {kw_stat:.4f}')
 print(f'P-value: {kw_p:.4g}')
+
+alpha = 0.05
+if p_value <= alpha:
+  print('Conclusion: Reject H0 - Bicycle demand DIFFERS significanlty across seasons.')
+else:
+  print('Conclusion: Fail to reject H0 - No significant difference in demand across seasons.')
