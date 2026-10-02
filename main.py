@@ -271,3 +271,9 @@ for i, s in enumerate(sorted(df['season'].cat.categories)):
     axes[i].set_title(f'Q-Q Plot: {season_map[s]}')
 plt.tight_layout()
 plt.show()
+
+for s in sorted(df['season'].cat.categories):
+  sample = df[df['season'] == s]['count']
+  test_sample = sample.sample(min(len(sample), 500), random_state=42)
+  stat, p = shapiro(test_sample)
+  print(f'{season_map[s]}: Shapiro-Wilk stat={stat:.4f}, p-value={p:.4g}')
