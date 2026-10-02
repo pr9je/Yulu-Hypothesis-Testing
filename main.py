@@ -255,3 +255,10 @@ if p_value <= alpha:
   print('Conclusion: Reject H0 - Bicycle demand DIFFERS significanlty across weather conditions.')
 else:
   print('Conclusion: Fail to reject H0 - No significant difference in demand across weather conditions.')
+
+# Is the number of cycles rented similar or different in different seasons?
+season_groups = [df[df['season'] == s]['count'].values for s in sorted(df['season'].cat.categories)]
+
+for s in sorted(df['season'].cat.categories):
+    grp = df[df['season'] == s]['count']
+    print(f'Season {s} ({season_map[s]}): n={len(grp)}, mean={grp.mean():.2f}, std={grp.std():.2f}')
