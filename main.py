@@ -316,3 +316,10 @@ print(f'Degrees of freedom: {dof}')
 print(f'P-value: {p_value:.4g}')
 print('\nExpected frequencies (if weather and seasons were independent):')
 print(pd.DataFrame(expected, index=contingency_table.index, columns=contingency_table.columns).round(1))
+
+alpha = 0.05
+if p_value <= alpha:
+    print('Conclusion: Reject H0 - Weather IS significantly associated with season.')
+else:
+    print('Conclusion: Fail to reject H0 - No significant association between weather and season.')
+
