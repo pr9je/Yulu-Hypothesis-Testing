@@ -302,3 +302,10 @@ contingency_table = pd.crosstab(df['season'], df['weather'])
 contingency_table.index = [season_map[i] for i in contingency_table.index]
 contingency_table.columns = [weather_map[i] for i in contingency_table.columns]
 contingency_table
+
+plt.figure(figsize=(8, 5))
+sns.heatmap(contingency_table, annot=True, fmt='d', cmap='YlGnBu')
+plt.title('Contingency Table: Season vs Weather (counts)')
+plt.ylabel('Season')
+plt.xlabel('Weather')
+plt.show()
