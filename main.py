@@ -296,3 +296,9 @@ if p_value <= alpha:
   print('Conclusion: Reject H0 - Bicycle demand DIFFERS significanlty across seasons.')
 else:
   print('Conclusion: Fail to reject H0 - No significant difference in demand across seasons.')
+
+### Is weather dependent on the season?
+contingency_table = pd.crosstab(df['season'], df['weather'])
+contingency_table.index = [season_map[i] for i in contingency_table.index]
+contingency_table.columns = [weather_map[i] for i in contingency_table.columns]
+contingency_table
